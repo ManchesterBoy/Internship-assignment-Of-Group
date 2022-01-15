@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hao.dao.deptInfMapper.DeptInfMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hao.entity.DeptInf">
+        <id column="ID" property="id" />
+        <result column="NAME" property="name" />
+        <result column="REMARK" property="remark" />
+    </resultMap>
+
+    <select id="selectDeptlnf" resultMap="BaseResultMap">
+        select id,name,remark from dept_inf
+        <where>
+            <if test="name != null">name = #{name}</if>
+        </where>
+    </select>
+
+    <insert id="addDeptInf" >
+        insert into dept_inf(NAME, REMARK)
+        values (#{dept.name}, #{dept.remark})
+    </insert>
+
+    <delete id="deleteDeptInf">
+        delete from dept_inf where id = #{id}
+    </delete>
+
+    <update id="updateDeptInf">
+        update dept_inf
+        set NAME = #{dept.name},
+            REMARK = #{dept.remark}
+        where ID = #{dept.id}
+    </update>
+
+
+    <select id="getCountAll" resultType="Integer">
+        select count(id) from dept_inf
+    </select>
+
+    <select id="getCountByCondition" resultType="Integer">
+        select count(id) from dept_inf where name = #{name}
+    </select>
+</mapper>
